@@ -14,6 +14,9 @@
 		0D260C8E2A4941B30008ED17 /* ExpenseReporterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D260C8D2A4941B30008ED17 /* ExpenseReporterTests.swift */; };
 		0D260C982A4941B30008ED17 /* ExpenseReporterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D260C972A4941B30008ED17 /* ExpenseReporterUITests.swift */; };
 		0D260C9A2A4941B30008ED17 /* ExpenseReporterUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D260C992A4941B30008ED17 /* ExpenseReporterUITestsLaunchTests.swift */; };
+		0D5E257C2A494C6B00549273 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5E257B2A494C6B00549273 /* AuthenticationView.swift */; };
+		0D5E257F2A494FC800549273 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5E257E2A494FC800549273 /* AuthenticationService.swift */; };
+		0DFDA2D52A494458006083E6 /* CouchbaseLiteSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0DFDA2D42A494458006083E6 /* CouchbaseLiteSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +48,8 @@
 		0D260C932A4941B30008ED17 /* ExpenseReporterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExpenseReporterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D260C972A4941B30008ED17 /* ExpenseReporterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseReporterUITests.swift; sourceTree = "<group>"; };
 		0D260C992A4941B30008ED17 /* ExpenseReporterUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseReporterUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		0D5E257B2A494C6B00549273 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
+		0D5E257E2A494FC800549273 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DFDA2D52A494458006083E6 /* CouchbaseLiteSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +81,7 @@
 		0D260C6F2A4941B20008ED17 = {
 			isa = PBXGroup;
 			children = (
+				0D5E257D2A494FB700549273 /* Services */,
 				0D260C7A2A4941B20008ED17 /* ExpenseReporter */,
 				0D260C8C2A4941B30008ED17 /* ExpenseReporterTests */,
 				0D260C962A4941B30008ED17 /* ExpenseReporterUITests */,
@@ -100,6 +107,7 @@
 				0D260C7F2A4941B30008ED17 /* Assets.xcassets */,
 				0D260C812A4941B30008ED17 /* ExpenseReporter.entitlements */,
 				0D260C822A4941B30008ED17 /* Preview Content */,
+				0D5E257B2A494C6B00549273 /* AuthenticationView.swift */,
 			);
 			path = ExpenseReporter;
 			sourceTree = "<group>";
@@ -129,6 +137,14 @@
 			path = ExpenseReporterUITests;
 			sourceTree = "<group>";
 		};
+		0D5E257D2A494FB700549273 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				0D5E257E2A494FC800549273 /* AuthenticationService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -145,6 +161,9 @@
 			dependencies = (
 			);
 			name = ExpenseReporter;
+			packageProductDependencies = (
+				0DFDA2D42A494458006083E6 /* CouchbaseLiteSwift */,
+			);
 			productName = ExpenseReporter;
 			productReference = 0D260C782A4941B20008ED17 /* ExpenseReporter.app */;
 			productType = "com.apple.product-type.application";
@@ -217,6 +236,9 @@
 				Base,
 			);
 			mainGroup = 0D260C6F2A4941B20008ED17;
+			packageReferences = (
+				0DFDA2D32A494458006083E6 /* XCRemoteSwiftPackageReference "couchbase-lite-swift-ee" */,
+			);
 			productRefGroup = 0D260C792A4941B20008ED17 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -261,6 +283,8 @@
 			files = (
 				0D260C7E2A4941B20008ED17 /* ContentView.swift in Sources */,
 				0D260C7C2A4941B20008ED17 /* ExpenseReporterApp.swift in Sources */,
+				0D5E257C2A494C6B00549273 /* AuthenticationView.swift in Sources */,
+				0D5E257F2A494FC800549273 /* AuthenticationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,6 +448,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "CBL Expense Reporter";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -443,6 +469,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -462,6 +491,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "CBL Expense Reporter";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -481,6 +512,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -617,6 +651,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0DFDA2D32A494458006083E6 /* XCRemoteSwiftPackageReference "couchbase-lite-swift-ee" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/couchbase/couchbase-lite-swift-ee.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0DFDA2D42A494458006083E6 /* CouchbaseLiteSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0DFDA2D32A494458006083E6 /* XCRemoteSwiftPackageReference "couchbase-lite-swift-ee" */;
+			productName = CouchbaseLiteSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0D260C702A4941B20008ED17 /* Project object */;
 }
