@@ -46,6 +46,7 @@ struct MainView: View {
             }
             .listStyle(.insetGrouped)
             .navigationTitle("Expense Reporter")
+            .navigationBarTitleDisplayMode(.inline)
             
             Section() {
                 Button(action: {
