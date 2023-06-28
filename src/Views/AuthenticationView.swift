@@ -16,10 +16,16 @@ struct AuthenticationView: View {
 
     var body: some View {
         VStack {
-            Text("Acme Expense Reporter")
-                .font(.largeTitle)
-                .fontWeight(.semibold)
-                .padding(.bottom, 20)
+            Button(action: {
+                    username = "user@example.com"
+                    password = "P@ssw0rd12"
+            }){
+                Image("CompanyLogo")
+                    .resizable()
+                    .frame(width: 120.0, height: 120.0)
+            }.padding(.bottom, 40)
+            
+             
             
             TextField("Username", text: $username)
                 .padding()
@@ -63,7 +69,7 @@ struct AuthenticationView: View {
                     .foregroundColor(.white)
                     .padding()
                     .frame(width: 220, height: 60)
-                    .background(Color.blue)
+                    .background(Color("CouchbaseRed"))
                     .cornerRadius(15)
             }
         }

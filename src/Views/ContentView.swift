@@ -20,9 +20,9 @@ struct ContentView: View {
         case "Developer":
             DeveloperView()
         case "Replication":
-            DeveloperView()
+            ReplicationView()
         default:
-            ExpenseReportView()
+            ReportsView()
         }
     }
        

@@ -11,29 +11,32 @@ struct MainView: View {
     var navigationMenuService = NavigationMenuService()
     @EnvironmentObject var authenticationService: AuthenticationService
     @State private var selection: NavigationMenuItem?
+    @State private var preferredColumn = NavigationSplitViewColumn.content
     
     var body: some View {
-        NavigationSplitView {
-            //TODO this vstack feels wrong, probably better way of doing this, research
-            
+        NavigationSplitView(preferredCompactColumn: $preferredColumn) {
             List(navigationMenuService.menuItems, id:\.id, selection: $selection) { menuItem in
-                NavigationLink(value: menuItem) {
-                    if (menuItem.name == "User Profile"){
-                        VStack{
-                            HStack{
-                                Image(systemName: "person.circle.fill")
-                                VStack{
-                                    Text("Full Name")
-                                        .font(.title)
-                                    
-                                    Text(authenticationService.username)
-                                        .font(.caption)
-                                    
+                if (menuItem.name == "User Profile"){
+                    Section(header: Text("User Profile")) {
+                        NavigationLink(value: menuItem) {
+                            VStack{
+                                HStack{
+                                    Image(systemName: "person.circle.fill")
+                                    VStack(alignment: .leading){
+                                        Text("Full Name")
+                                            .font(.subheadline)
+                                        
+                                        Text(authenticationService.username)
+                                            .font(.caption)
+                                        
+                                    }
                                 }
                             }
                         }
                     }
-                    else {
+                }
+                else {
+                    NavigationLink(value: menuItem) {
                         HStack {
                             menuItem.icon
                             Text(menuItem.name)
@@ -41,17 +44,22 @@ struct MainView: View {
                     }
                 }
             }
+            .listStyle(.insetGrouped)
             .navigationTitle("Expense Reporter")
-            .listStyle(SidebarListStyle())
             
-            Button(action: {
-                authenticationService.isAuthenticated = false
-            }){
-                HStack{
-                    Image(systemName: "arrow.right.square")
-                    Text("Logoff")
-                }
-            }.buttonStyle(GrowingButton())
+            Section() {
+                Button(action: {
+                    authenticationService.isAuthenticated = false
+                }){
+                    HStack{
+                        Image(systemName: "arrow.right.square")
+                        Text("Logoff")
+                    }
+                }.buttonStyle(GrowingButton())
+            }
+
+            
+            
         } content: {
             ContentView(selection: selection).environmentObject(authenticationService)
         } detail: {
