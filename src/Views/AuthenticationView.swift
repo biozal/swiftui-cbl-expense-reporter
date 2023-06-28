@@ -12,7 +12,7 @@ struct AuthenticationView: View {
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var isPasswordVisible: Bool = false
-    @ObservedObject var authenticationService: AuthenticationService
+    @EnvironmentObject var authenticationService: AuthenticationService
 
     var body: some View {
         VStack {
@@ -73,5 +73,5 @@ struct AuthenticationView: View {
 }
 
 #Preview {
-    AuthenticationView(authenticationService: AuthenticationService())
+    AuthenticationView()
 }

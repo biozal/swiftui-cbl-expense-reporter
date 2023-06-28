@@ -9,14 +9,14 @@ import SwiftUI
 
 @main
 struct ExpenseReporterApp: App {
-    @StateObject private var authService = AuthenticationService()
+    @StateObject var authService = AuthenticationService()
 
     var body: some Scene {
         WindowGroup {
             if authService.isAuthenticated {
-                ContentView()
+                MainView().environmentObject(authService)
             } else {
-                AuthenticationView(authenticationService: authService)
+                AuthenticationView().environmentObject(authService)
             }
         }
     }
