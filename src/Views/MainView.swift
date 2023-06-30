@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct MainView: View {
+    
     var navigationMenuService = NavigationMenuService()
+    
     @EnvironmentObject var authenticationService: AuthenticationService
+    @EnvironmentObject var userProfileRepository : UserProfileRepository
+    @EnvironmentObject var databaseManager: DatabaseManager
+    
     @State private var selection: NavigationMenuItem?
     @State private var preferredColumn = NavigationSplitViewColumn.content
     
@@ -23,7 +28,7 @@ struct MainView: View {
                                 HStack{
                                     Image(systemName: "person.circle.fill")
                                     VStack(alignment: .leading){
-                                        Text("Full Name")
+                                        Text(userProfileRepository.authenticatedUserProfile?.fullName() ?? "")
                                             .font(.subheadline)
                                         
                                         Text(authenticationService.username)
@@ -50,7 +55,9 @@ struct MainView: View {
             
             Section() {
                 Button(action: {
+                    databaseManager.closeDatabase()
                     authenticationService.isAuthenticated = false
+                    userProfileRepository.authenticatedUserProfile = nil
                 }){
                     HStack{
                         Image(systemName: "arrow.right.square")
@@ -62,7 +69,9 @@ struct MainView: View {
             
             
         } content: {
-            ContentView(selection: selection).environmentObject(authenticationService)
+            ContentView(selection: selection)
+                .environmentObject(authenticationService)
+                .environmentObject(userProfileRepository)
         } detail: {
             DetailView(selection: selection)
         }

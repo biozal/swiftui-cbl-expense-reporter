@@ -18,10 +18,8 @@ class AuthenticationService : ObservableObject {
     }
     
     func authenticate(username: String, password: String) -> Bool {
-        let correctUsername = "user@example.com"
-        let correctPassword = "P@ssw0rd12"
-        
-        if username == correctUsername && password == correctPassword {
+        let users = getUsers()
+        if let user = users.first(where: { $0.username == username && $0.password == password }) {
             isAuthenticated = true
             self.username = username
             return true
@@ -30,4 +28,21 @@ class AuthenticationService : ObservableObject {
             return false
         }
     }
+    
+    func getUsers () -> [User]{
+        return [
+            User(username:"jane.doe@example.com", password: "P@ssw0rd12"),
+            User(username:"john.smith@example.com", password: "P@ssw0rd12"),
+            User(username:"steve.jobs@example.com", password: "P@ssw0rd12"),
+            User(username:"steve.woz@example.com", password: "P@ssw0rd12"),
+            User(username:"gemma.watson@example.com", password: "P@ssw0rd12"),
+            User(username:"craig.federighi@example.com", password: "P@ssw0rd12"),
+            User(username:"mike.fenger@example.com", password: "P@ssw0rd12")
+        ]
+    }
+}
+
+struct User {
+    var username: String
+    var password: String
 }
