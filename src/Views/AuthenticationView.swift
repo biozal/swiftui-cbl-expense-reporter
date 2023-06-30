@@ -12,12 +12,15 @@ struct AuthenticationView: View {
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var isPasswordVisible: Bool = false
+    
+    @EnvironmentObject var databaseManager: DatabaseManager
     @EnvironmentObject var authenticationService: AuthenticationService
+    @EnvironmentObject var userProfileRepository: UserProfileRepository
 
     var body: some View {
         VStack {
             Button(action: {
-                    username = "user@example.com"
+                    username = "craig.federighi@example.com"
                     password = "P@ssw0rd12"
             }){
                 Image("CompanyLogo")
@@ -59,7 +62,10 @@ struct AuthenticationView: View {
             Button(action: {
                 let authenticated = authenticationService.authenticate(username: username, password: password)
                 if authenticated {
-                    print("Authentication successful!")
+                    
+                    //open database and load user profile into memory for later use
+                    databaseManager.openDatabase()
+                    userProfileRepository.loadUserProfile(userId: username)
                 } else {
                     print("Authentication failed.")
                 }
