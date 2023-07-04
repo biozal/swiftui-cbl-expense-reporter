@@ -15,7 +15,7 @@ struct AuthenticationView: View {
     
     @EnvironmentObject var databaseManager: DatabaseManager
     @EnvironmentObject var authenticationService: AuthenticationService
-    @EnvironmentObject var userProfileRepository: UserProfileRepository
+    @EnvironmentObject var userProfileRepository: EmployeeRepository
 
     var body: some View {
         VStack {

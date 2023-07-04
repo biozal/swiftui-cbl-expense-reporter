@@ -6,10 +6,15 @@
 //
 
 import SwiftUI
-
-struct UserProfileView: View {
+import PhotosUI
+struct EmployeeProfileView: View {
     
-    @EnvironmentObject var _userProfileRepository: UserProfileRepository
+    @EnvironmentObject var employeeRepository: EmployeeRepository
+    @Binding var selectedNavigationMenuItem: NavigationMenuItem?
+    
+    @State private var avatarItem: PhotosPickerItem?
+    @State private var avatarImage: Image?
+    @State private var avatarData: Data?
     
     @State private var firstName = ""
     @State private var lastName = ""
@@ -33,6 +38,32 @@ struct UserProfileView: View {
     var body: some View {
         NavigationView {
             Form {
+                VStack{
+                    PhotosPicker("Select Profile Picture", selection: $avatarItem, matching: .images).photosPickerStyle(.presentation)
+                    
+                    if let avatarImage {
+                        avatarImage
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 300, height: 300)
+                        
+                    }
+                }
+                .onChange(of: avatarItem, initial: false) {
+                           Task {
+                               if let data = try? await avatarItem?.loadTransferable(type: Data.self) {
+                                   avatarData = data
+                                   if let uiImage = UIImage(data: data) {
+                                       avatarImage = Image(uiImage: uiImage)
+                                       return
+                                   }
+                               }
+
+                               print("Failed")
+                           }
+                       }
+                .frame(maxWidth: .infinity, alignment: .center)
+                
                 Section(header: Text("Personal Information")) {
                     TextField("First Name", text: $firstName )
                     TextField("Last Name", text: $lastName)
@@ -55,16 +86,27 @@ struct UserProfileView: View {
                     HStack{
                         Spacer()
                         Button(action: {
-                            
-                            _userProfileRepository.authenticatedUserProfile?.firstName = firstName
-                            _userProfileRepository.authenticatedUserProfile?.lastName = lastName
-                            _userProfileRepository.authenticatedUserProfile?.jobTitle = jobTitle
-                            _userProfileRepository.authenticatedUserProfile?.department = selectedDepartments
-                            let saveResults = _userProfileRepository.saveUserProfile()
-                            if (saveResults){
-                                //todo pop of navigation stack
-                            } else {
-                                //todo show error message
+                            if var employee = employeeRepository.authenticatedEmployee {
+                                employee.firstName = firstName
+                                employee.lastName = lastName
+                                employee.jobTitle = jobTitle
+                                employee.department = selectedDepartments
+                                
+                                //wrap employee and image to send to repository
+                                var employeeDao = EmployeeDAO(employee: employee, imageData: nil)
+                                
+                                if let data = avatarData {
+                                    employeeDao.imageData = data
+                                }
+                                let saveResults = employeeRepository.saveUserProfile(employeeDao: employeeDao)
+                                
+                                if (saveResults){
+                                    //route back to expense reports
+                                    selectedNavigationMenuItem = NavigationMenuService.getDefault()
+                                    
+                                } else {
+                                    //todo show error message
+                                }
                             }
                             
                         }){
@@ -74,7 +116,6 @@ struct UserProfileView: View {
                     }
                 }
             }
-            .navigationBarTitle("User Profile")
         }
         .onAppear{
             loadState()
@@ -82,11 +123,11 @@ struct UserProfileView: View {
     }
     
     func loadState() {
-        if let userProfile = _userProfileRepository.authenticatedUserProfile {
-            firstName = userProfile.firstName
-            lastName = userProfile.lastName
-            jobTitle = userProfile.jobTitle
-            if let departments = userProfile.department{
+        if let employeeProfile = employeeRepository.authenticatedEmployee {
+            firstName = employeeProfile.firstName
+            lastName = employeeProfile.lastName
+            jobTitle = employeeProfile.jobTitle
+            if let departments = employeeProfile.department{
                 selectedDepartments = departments
             }
         }
@@ -110,7 +151,10 @@ struct MultipleSelectionRow: View {
         }
     }
 }
-
-#Preview {
-    UserProfileView()
-}
+/*
+ #Preview {
+ @State var isActive = false
+ 
+ EmployeeProfileView(navigationLinkIsActive: $isActive)
+ }
+ */

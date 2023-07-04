@@ -19,7 +19,7 @@ class AuthenticationService : ObservableObject {
     
     func authenticate(username: String, password: String) -> Bool {
         let users = getUsers()
-        if let user = users.first(where: { $0.username == username && $0.password == password }) {
+        if users.first(where: { $0.username == username && $0.password == password }) != nil {
             isAuthenticated = true
             self.username = username
             return true

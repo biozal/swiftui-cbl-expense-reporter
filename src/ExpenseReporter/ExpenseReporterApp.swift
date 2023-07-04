@@ -12,11 +12,11 @@ import Combine
 struct ExpenseReporterApp: App {
     var databaseManager: DatabaseManager
     @StateObject var authService = AuthenticationService()
-    var userProfileRepository: UserProfileRepository
+    var userProfileRepository: EmployeeRepository
     
     init() {
         databaseManager = DatabaseManager()
-        userProfileRepository = UserProfileRepository(databaseManager: databaseManager)
+        userProfileRepository = EmployeeRepository(databaseManager: databaseManager)
     }
     
     var body: some Scene {

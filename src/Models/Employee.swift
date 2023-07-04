@@ -6,15 +6,16 @@
 //
 
 import Foundation
+import CouchbaseLiteSwift
 
-struct UserProfile : Codable {
+struct Employee : Codable {
     var firstName: String
     var lastName: String
     var email: String
     var jobTitle: String
     var modifiedDate: Date
     var department: Set<Department>?
-    var documnentType = "userProfile"
+    var documentType = "userProfile"
     
     init(firstName: String, lastName: String, email: String, jobTitle: String, department: Set<Department>?, modifiedDate: Date)  {
         self.firstName = firstName

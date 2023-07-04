@@ -12,7 +12,7 @@ struct MainView: View {
     var navigationMenuService = NavigationMenuService()
     
     @EnvironmentObject var authenticationService: AuthenticationService
-    @EnvironmentObject var userProfileRepository : UserProfileRepository
+    @EnvironmentObject var userProfileRepository : EmployeeRepository
     @EnvironmentObject var databaseManager: DatabaseManager
     
     @State private var selection: NavigationMenuItem?
@@ -21,14 +21,14 @@ struct MainView: View {
     var body: some View {
         NavigationSplitView(preferredCompactColumn: $preferredColumn) {
             List(navigationMenuService.menuItems, id:\.id, selection: $selection) { menuItem in
-                if (menuItem.name == "User Profile"){
+                if (menuItem.routableView == .employeeProfile){
                     Section(header: Text("User Profile")) {
                         NavigationLink(value: menuItem) {
                             VStack{
                                 HStack{
                                     Image(systemName: "person.circle.fill")
                                     VStack(alignment: .leading){
-                                        Text(userProfileRepository.authenticatedUserProfile?.fullName() ?? "")
+                                        Text(userProfileRepository.authenticatedEmployee?.fullName() ?? "")
                                             .font(.subheadline)
                                         
                                         Text(authenticationService.username)
@@ -38,6 +38,7 @@ struct MainView: View {
                                 }
                             }
                         }
+                        .isDetailLink(false)
                     }
                 }
                 else {
@@ -57,7 +58,7 @@ struct MainView: View {
                 Button(action: {
                     databaseManager.closeDatabase()
                     authenticationService.isAuthenticated = false
-                    userProfileRepository.authenticatedUserProfile = nil
+                    userProfileRepository.authenticatedEmployee = nil
                 }){
                     HStack{
                         Image(systemName: "arrow.right.square")
@@ -65,15 +66,24 @@ struct MainView: View {
                     }
                 }.buttonStyle(GrowingButton())
             }
-
-            
-            
         } content: {
-            ContentView(selection: selection)
-                .environmentObject(authenticationService)
-                .environmentObject(userProfileRepository)
+            switch selection?.routableView {
+            case .employeeProfile:
+                EmployeeProfileView(selectedNavigationMenuItem: $selection)
+                    .environmentObject(userProfileRepository)
+            case .reports:
+                ReportsView()
+            case .developerList:
+                DeveloperView()
+            case .replicationStatus:
+                ReplicationView()
+            default:
+                ReportsView()
+            }
         } detail: {
-            DetailView(selection: selection)
+            if (selection?.routableView == RoutableView.reports){
+                ExpenseReportView()
+            }
         }
         .environmentObject(authenticationService)
     }
