@@ -22,39 +22,47 @@ struct EmployeeProfileView: View {
     @State private var selectedDepartments = Set<Department>()
     
     let departments = [
-        Department(departmentName: "Accounting", departmentNumber: "1"),
-        Department(departmentName: "Admin", departmentNumber: "2"),
-        Department(departmentName: "Communicatoin", departmentNumber: "3"),
-        Department(departmentName: "Engineering", departmentNumber: "4"),
-        Department(departmentName: "Hardware Technologies", departmentNumber: "5"),
-        Department(departmentName: "Information Technology", departmentNumber: "6"),
-        Department(departmentName: "Marketing", departmentNumber: "7"),
-        Department(departmentName: "Retail", departmentNumber: "8"),
-        Department(departmentName: "Sales", departmentNumber: "9"),
-        Department(departmentName: "Services", departmentNumber: "10"),
-        Department(departmentName: "Support", departmentNumber: "11")
+        Department(name: "Accounting", deptNumber: "1"),
+        Department(name: "Admin", deptNumber: "2"),
+        Department(name: "Communicatoin", deptNumber: "3"),
+        Department(name: "Engineering", deptNumber: "4"),
+        Department(name: "Hardware Technologies", deptNumber: "5"),
+        Department(name: "Information Technology", deptNumber: "6"),
+        Department(name: "Marketing", deptNumber: "7"),
+        Department(name: "Retail", deptNumber: "8"),
+        Department(name: "Sales", deptNumber: "9"),
+        Department(name: "Services", deptNumber: "10"),
+        Department(name: "Support", deptNumber: "11")
     ]
     
     var body: some View {
         NavigationView {
             Form {
                 VStack{
-                    PhotosPicker("Select Profile Picture", selection: $avatarItem, matching: .images).photosPickerStyle(.presentation)
+                    PhotosPicker("Select Profile Picture", selection: $avatarItem, matching: .images)
+                        .photosPickerStyle(.presentation)
                     
                     if let avatarImage {
                         avatarImage
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 300, height: 300)
+                            .clipShape(Circle())
                         
                     }
                 }
                 .onChange(of: avatarItem, initial: false) {
                            Task {
+                              
                                if let data = try? await avatarItem?.loadTransferable(type: Data.self) {
-                                   avatarData = data
+                                   //todo - maybe make this more efficient
                                    if let uiImage = UIImage(data: data) {
-                                       avatarImage = Image(uiImage: uiImage)
+                                       //resize the image to make it smaller
+                                       if let newImage = uiImage.scale(to: CGSize(width: 300, height: 300)){
+                                           avatarData = newImage.pngData()
+                                           
+                                           avatarImage =
+                                                Image(uiImage: newImage)
+                                       }
                                        return
                                    }
                                }
@@ -72,7 +80,7 @@ struct EmployeeProfileView: View {
                 //TODO maybe look at a cleaner implementation in a future release
                 Section(header: Text("Department")) {
                     ForEach(departments, id: \.self) { department in
-                        MultipleSelectionRow(title: department.departmentName, isSelected: self.selectedDepartments.contains(department)) {
+                        MultipleSelectionRow(title: department.name, isSelected: self.selectedDepartments.contains(department)) {
                             if self.selectedDepartments.contains(department) {
                                 self.selectedDepartments.remove(department)
                             } else {
@@ -86,11 +94,11 @@ struct EmployeeProfileView: View {
                     HStack{
                         Spacer()
                         Button(action: {
-                            if var employee = employeeRepository.authenticatedEmployee {
+                            if var employee = employeeRepository.authenticatedEmployee?.employee {
                                 employee.firstName = firstName
                                 employee.lastName = lastName
                                 employee.jobTitle = jobTitle
-                                employee.department = selectedDepartments
+                                employee.department = Array(selectedDepartments)
                                 
                                 //wrap employee and image to send to repository
                                 var employeeDao = EmployeeDAO(employee: employee, imageData: nil)
@@ -98,7 +106,7 @@ struct EmployeeProfileView: View {
                                 if let data = avatarData {
                                     employeeDao.imageData = data
                                 }
-                                let saveResults = employeeRepository.saveUserProfile(employeeDao: employeeDao)
+                                let saveResults = employeeRepository.saveEmployeeProfile(employeeDao: employeeDao)
                                 
                                 if (saveResults){
                                     //route back to expense reports
@@ -123,12 +131,18 @@ struct EmployeeProfileView: View {
     }
     
     func loadState() {
-        if let employeeProfile = employeeRepository.authenticatedEmployee {
+        if let employeeProfile = employeeRepository.authenticatedEmployee?.employee {
             firstName = employeeProfile.firstName
             lastName = employeeProfile.lastName
             jobTitle = employeeProfile.jobTitle
             if let departments = employeeProfile.department{
-                selectedDepartments = departments
+                selectedDepartments = Set(departments)
+            }
+            if let data = employeeRepository.authenticatedEmployee?.imageData {
+                avatarData = data
+                if let uiImage = UIImage(data: data){
+                    avatarImage = Image(uiImage: uiImage)
+                }
             }
         }
     }

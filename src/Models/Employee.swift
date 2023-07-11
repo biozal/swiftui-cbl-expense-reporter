@@ -14,10 +14,10 @@ struct Employee : Codable {
     var email: String
     var jobTitle: String
     var modifiedDate: Date
-    var department: Set<Department>?
+    var department: [Department]?
     var documentType = "userProfile"
     
-    init(firstName: String, lastName: String, email: String, jobTitle: String, department: Set<Department>?, modifiedDate: Date)  {
+    init(firstName: String, lastName: String, email: String, jobTitle: String, department: [Department]?, modifiedDate: Date)  {
         self.firstName = firstName
         self.lastName = lastName
         self.email = email

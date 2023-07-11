@@ -11,7 +11,13 @@ import Combine
 class NavigationSelectionService : ObservableObject {
     let objectWillChange = PassthroughSubject<Void, Never>()
     
-    var selection: NavigationMenuItem = NavigationMenuService.getDefault() {
+    var contentSelection: NavigationMenuItem = NavigationMenuService.getDefault() {
+        didSet{
+            objectWillChange.send()
+        }
+    }
+    
+    var detailSelection: NavigationMenuItem? = nil {
         didSet{
             objectWillChange.send()
         }

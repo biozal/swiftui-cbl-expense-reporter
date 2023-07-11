@@ -10,8 +10,12 @@ import Combine
 
 @main
 struct ExpenseReporterApp: App {
+    
     var databaseManager: DatabaseManager
+    
     @StateObject var authService = AuthenticationService()
+    @StateObject var navigationSelectionService =  NavigationSelectionService()
+    
     var userProfileRepository: EmployeeRepository
     
     init() {
@@ -26,6 +30,7 @@ struct ExpenseReporterApp: App {
                     .environmentObject(databaseManager)
                     .environmentObject(authService)
                     .environmentObject(userProfileRepository)
+                    .environmentObject(navigationSelectionService)
             } else {
                 AuthenticationView()
                     .environmentObject(databaseManager)

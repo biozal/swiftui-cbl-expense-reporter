@@ -16,6 +16,7 @@ enum RoutableView {
     case developerList
     case replicationStatus
     case databaseInformation
+    case dataGenerator
     case logViewer
 }
 

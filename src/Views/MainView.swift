@@ -9,12 +9,13 @@ import SwiftUI
 
 struct MainView: View {
     
-    var navigationMenuService = NavigationMenuService()
     
     @EnvironmentObject var authenticationService: AuthenticationService
-    @EnvironmentObject var userProfileRepository : EmployeeRepository
+    @EnvironmentObject var employeeRepository : EmployeeRepository
     @EnvironmentObject var databaseManager: DatabaseManager
+    @EnvironmentObject var navigationSelectionService: NavigationSelectionService
     
+    @State var navigationMenuService = NavigationMenuService()
     @State private var selection: NavigationMenuItem?
     @State private var preferredColumn = NavigationSplitViewColumn.content
     
@@ -26,9 +27,22 @@ struct MainView: View {
                         NavigationLink(value: menuItem) {
                             VStack{
                                 HStack{
-                                    Image(systemName: "person.circle.fill")
+                                    if let data =  employeeRepository.authenticatedEmployee?.imageData
+                                    {
+                                        if let uiImage = UIImage(data:  data) {
+                                            Image(uiImage: uiImage)
+                                                .resizable()
+                                                .frame(width: 64, height: 64)
+                                                .clipShape(Circle())
+                                        }
+
+                                        
+                                    } else {
+                                        Image(systemName: "person.circle.fill")
+
+                                    }
                                     VStack(alignment: .leading){
-                                        Text(userProfileRepository.authenticatedEmployee?.fullName() ?? "")
+                                        Text(employeeRepository.authenticatedEmployee?.employee.fullName() ?? "")
                                             .font(.subheadline)
                                         
                                         Text(authenticationService.username)
@@ -58,7 +72,7 @@ struct MainView: View {
                 Button(action: {
                     databaseManager.closeDatabase()
                     authenticationService.isAuthenticated = false
-                    userProfileRepository.authenticatedEmployee = nil
+                    employeeRepository.authenticatedEmployee = nil
                 }){
                     HStack{
                         Image(systemName: "arrow.right.square")
@@ -70,19 +84,30 @@ struct MainView: View {
             switch selection?.routableView {
             case .employeeProfile:
                 EmployeeProfileView(selectedNavigationMenuItem: $selection)
-                    .environmentObject(userProfileRepository)
-            case .reports:
-                ReportsView()
+                    .environmentObject(employeeRepository)
+            
             case .developerList:
                 DeveloperView()
+                    .environmentObject(employeeRepository)
+                    .environmentObject(databaseManager)
             case .replicationStatus:
                 ReplicationView()
             default:
-                ReportsView()
+                ReportsView(navigationMenuService: navigationMenuService)
+                    .environmentObject(navigationSelectionService)
             }
         } detail: {
-            if (selection?.routableView == RoutableView.reports){
+            switch (selection?.routableView){
+            case .dataGenerator:
+                DataLoaderView()
+                    .environmentObject(databaseManager)
+                    .environmentObject(employeeRepository)
+            case .databaseInformation:
+                DatabaseInfoView()
+            case .expenseReport:
                 ExpenseReportView()
+            default:
+                EmptyView()
             }
         }
         .environmentObject(authenticationService)

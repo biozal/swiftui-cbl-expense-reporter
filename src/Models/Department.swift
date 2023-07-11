@@ -8,15 +8,15 @@
 import Foundation
 
 struct Department : Codable,Hashable {
-    var departmentName  : String = ""
-    var departmentNumber: String = ""
+    var name  : String = ""
+    var deptNumber: String = ""
     
-    init (departmentName: String, departmentNumber: String) {
-        self.departmentName = departmentName
-        self.departmentNumber =  departmentNumber
+    init (name: String, deptNumber: String) {
+        self.name = name
+        self.deptNumber =  deptNumber
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(departmentNumber)
+        hasher.combine(deptNumber)
     }
 }

@@ -9,11 +9,29 @@ import SwiftUI
 
 struct ReportsView: View {
     
+    @EnvironmentObject var navigationSelectionService: NavigationSelectionService
+    
+    var navigationMenuService: NavigationMenuService
+   
+    init (navigationMenuService: NavigationMenuService){
+        self.navigationMenuService = navigationMenuService
+    }
+    
     var body: some View {
-        Text("Expense Reports")
+        VStack{
+            Text("Expense Reports")
+        }.navigationTitle("Expense Reports")
+         .navigationBarTitleDisplayMode(.inline)
+         .onAppear(perform: {
+                if let selection = navigationMenuService.detailRoutes.first(where: {$0.routableView == .expenseReport}) {
+                    if (navigationSelectionService.detailSelection != selection){
+                        navigationSelectionService.detailSelection = selection
+                    }
+                }
+            })
     }
 }
 
 #Preview {
-    ReportsView()
+    ReportsView(navigationMenuService: NavigationMenuService())
 }
