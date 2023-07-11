@@ -10,13 +10,17 @@ import Combine
 
 @main
 struct ExpenseReporterApp: App {
+    
     var databaseManager: DatabaseManager
+    
     @StateObject var authService = AuthenticationService()
-    var userProfileRepository: UserProfileRepository
+    @StateObject var navigationSelectionService =  NavigationSelectionService()
+    
+    var userProfileRepository: EmployeeRepository
     
     init() {
         databaseManager = DatabaseManager()
-        userProfileRepository = UserProfileRepository(databaseManager: databaseManager)
+        userProfileRepository = EmployeeRepository(databaseManager: databaseManager)
     }
     
     var body: some Scene {
@@ -26,6 +30,7 @@ struct ExpenseReporterApp: App {
                     .environmentObject(databaseManager)
                     .environmentObject(authService)
                     .environmentObject(userProfileRepository)
+                    .environmentObject(navigationSelectionService)
             } else {
                 AuthenticationView()
                     .environmentObject(databaseManager)

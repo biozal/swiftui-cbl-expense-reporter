@@ -1,0 +1,94 @@
+[
+	{
+		"documentId": "e0a80de3-1881-4687-99ba-128356962bc0",
+		"documentType": "expenseTypes",
+		"expenseTypes": [
+			{
+				"name": "Communications",
+				"subTypes": [
+					"Cell Phone & Internet",
+					"Internet Access"
+				]
+			},
+			{
+				"name": "Meals and Entertainment",
+				"subTypes": [
+					"Company Meetings",
+					"Customer Entertainment",
+					"Customer Meals",
+					"Employee Group Meals",
+					"Gifts",
+					"Office Snacks/Beverages",
+					"Travel Meals-Breakfast",
+					"Travel Meals-Lunch",
+					"Travel Meals-Dinner",
+					"Travel Meals-Snack"
+				]
+			},
+			{
+				"name": "Office",
+				"subTypes": [
+					"Computer Asset >  $1,000",
+					"Computer Hardware <  $1,000",
+					"Computer Software",
+					"Funiture",
+					"Newspapers/Books/Magaizines",
+					"Office Equipment",
+					"Office Supplies",
+					"Postage & Shipping",
+					"Printing/Photocopying",
+					"Tradeshow Freight"
+				]
+			},
+			{
+				"name": "Other",
+				"subTypes": [
+					"Advertising",
+					"Computer Accessories",
+					"Events",
+					"Currency Exchange Fees",
+					"Dues, Memberships",
+					"Facility Repair & Maintenance",
+					"Miscellaneous",
+					"Professional Services",
+					"Promotional Items",
+					"Recruiting",
+					"Relocation",
+					"Seminars & Training",
+					"Subscriptions",
+					"Tips/Gratuities",
+					"Trade Shows",
+					"User Meetings & Conferences"
+				]
+			},
+			{
+				"name": "Transportation",
+				"subTypes": [
+					"Bus",
+					"Car Mileage",
+					"Limousine",
+					"Parking",
+					"Subway",
+					"Taxi",
+					"Tolls"
+				]
+			},
+			{
+				"name": "Travel",
+				"subTypes": [
+					"Airfare",
+					"Airline Fee",
+					"Booking Fees",
+					"Car Rental",
+					"Car Rental - Fuel",
+					"Car Rental - Insurance",
+					"Hotel",
+					"Hotel Tax",
+					"Lodging - Other",
+					"Train"
+				]
+			}
+
+		]
+	}
+]

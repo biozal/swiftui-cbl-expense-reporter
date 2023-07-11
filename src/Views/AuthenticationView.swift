@@ -15,7 +15,7 @@ struct AuthenticationView: View {
     
     @EnvironmentObject var databaseManager: DatabaseManager
     @EnvironmentObject var authenticationService: AuthenticationService
-    @EnvironmentObject var userProfileRepository: UserProfileRepository
+    @EnvironmentObject var userProfileRepository: EmployeeRepository
 
     var body: some View {
         VStack {
@@ -65,7 +65,7 @@ struct AuthenticationView: View {
                     
                     //open database and load user profile into memory for later use
                     databaseManager.openDatabase()
-                    userProfileRepository.loadUserProfile(userId: username)
+                    userProfileRepository.loadEmployeeProfile(userId: username)
                 } else {
                     print("Authentication failed.")
                 }

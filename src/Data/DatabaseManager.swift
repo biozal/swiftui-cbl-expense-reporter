@@ -13,13 +13,15 @@ class DatabaseManager: ObservableObject {
     var database: Database?
     var collection: Collection?
     var scope: Scope?
-   
+    
     //local database for storage
-    fileprivate var _applicationDocumentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last
+    //fileprivate var _applicationDocumentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last
+    var applicationDocumentDirectory = URL.documentsDirectory.path()
     
     //prebuilt database that is embedded in the app
     fileprivate var _applicationSupportDirectory = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).last
     
+    var databaseName = "expensereports"
     init() {
         Database.log.console.domains = .all
         
@@ -37,13 +39,10 @@ class DatabaseManager: ObservableObject {
     
     func openDatabase() {
         
-        if let path = _applicationDocumentDirectory?.path() {
-            var options = DatabaseConfiguration()
-            options.directory = path
-            database = try! Database(name: "expensereports", config: options)
-        } else {
-            database = try! Database(name: "expensereports")
-        }
+        var options = DatabaseConfiguration()
+        options.directory = applicationDocumentDirectory
+        
+        database = try! Database(name: databaseName, config: options)
         scope = try! database?.scope(name: "_default")
         collection = try! scope?.collection(name: "_default")
     }
