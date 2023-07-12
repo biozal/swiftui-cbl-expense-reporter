@@ -10,7 +10,6 @@ import PhotosUI
 struct EmployeeProfileView: View {
     
     @EnvironmentObject var employeeRepository: EmployeeRepository
-    @Binding var selectedNavigationMenuItem: NavigationMenuItem?
     
     @State private var avatarItem: PhotosPickerItem?
     @State private var avatarImage: Image?
@@ -110,8 +109,7 @@ struct EmployeeProfileView: View {
                                 
                                 if (saveResults){
                                     //route back to expense reports
-                                    selectedNavigationMenuItem = NavigationMenuService.getDefault()
-                                    
+                                    //pop view off
                                 } else {
                                     //todo show error message
                                 }

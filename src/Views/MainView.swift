@@ -83,7 +83,7 @@ struct MainView: View {
         } content: {
             switch selection?.routableView {
             case .employeeProfile:
-                EmployeeProfileView(selectedNavigationMenuItem: $selection)
+                EmployeeProfileView()
                     .environmentObject(employeeRepository)
             
             case .developerList:

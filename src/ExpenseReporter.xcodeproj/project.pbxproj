@@ -41,6 +41,7 @@
 		0DCF334D2A57B740005AE4AB /* DatabaseInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF334C2A57B740005AE4AB /* DatabaseInfoView.swift */; };
 		0DCF334F2A57BE15005AE4AB /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF334E2A57BE15005AE4AB /* EmptyView.swift */; };
 		0DCF33522A5DE3BA005AE4AB /* DatabaseInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF33512A5DE3BA005AE4AB /* DatabaseInfoViewModel.swift */; };
+		0DCF33542A5E3AB4005AE4AB /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF33532A5E3AB4005AE4AB /* AuthenticationViewModel.swift */; };
 		0DFDA2D52A494458006083E6 /* CouchbaseLiteSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0DFDA2D42A494458006083E6 /* CouchbaseLiteSwift */; };
 /* End PBXBuildFile section */
 
@@ -100,6 +101,7 @@
 		0DCF334C2A57B740005AE4AB /* DatabaseInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseInfoView.swift; sourceTree = "<group>"; };
 		0DCF334E2A57BE15005AE4AB /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		0DCF33512A5DE3BA005AE4AB /* DatabaseInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseInfoViewModel.swift; sourceTree = "<group>"; };
+		0DCF33532A5E3AB4005AE4AB /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -264,6 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				0DCF33512A5DE3BA005AE4AB /* DatabaseInfoViewModel.swift */,
+				0DCF33532A5E3AB4005AE4AB /* AuthenticationViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				0DCF334D2A57B740005AE4AB /* DatabaseInfoView.swift in Sources */,
 				0D1014EB2A4B6EA300A36606 /* ExpenseReportView.swift in Sources */,
 				0D260C7C2A4941B20008ED17 /* ExpenseReporterApp.swift in Sources */,
+				0DCF33542A5E3AB4005AE4AB /* AuthenticationViewModel.swift in Sources */,
 				0D42D7652A4BE058005BE69C /* DatabaseManager.swift in Sources */,
 				0D8ADAF52A4FC5DA000EB9C9 /* NavigationSelectionService.swift in Sources */,
 				0D1014F52A4B786000A36606 /* DeveloperView.swift in Sources */,

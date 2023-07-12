@@ -18,6 +18,7 @@ enum RoutableView {
     case databaseInformation
     case dataGenerator
     case logViewer
+    case emptyView
 }
 
 struct NavigationMenuItem: Identifiable, Hashable {

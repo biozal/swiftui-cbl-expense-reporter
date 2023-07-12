@@ -22,6 +22,8 @@ class DatabaseManager: ObservableObject {
     fileprivate var _applicationSupportDirectory = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).last
     
     var databaseName = "expensereports"
+    var fullDatabaseName = ""
+    
     init() {
         Database.log.console.domains = .all
         
@@ -37,12 +39,13 @@ class DatabaseManager: ObservableObject {
         }
     }
     
-    func openDatabase() {
+    func openDatabase(userId: String) {
         
+        fullDatabaseName = userId + "::" + databaseName
         var options = DatabaseConfiguration()
         options.directory = applicationDocumentDirectory
         
-        database = try! Database(name: databaseName, config: options)
+        database = try! Database(name: fullDatabaseName, config: options)
         scope = try! database?.scope(name: "_default")
         collection = try! scope?.collection(name: "_default")
     }
