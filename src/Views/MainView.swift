@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MainView: View {
     
-    
     @EnvironmentObject var authenticationService: AuthenticationService
     @EnvironmentObject var employeeRepository : EmployeeRepository
     @EnvironmentObject var databaseManager: DatabaseManager
@@ -20,9 +19,14 @@ struct MainView: View {
     @State private var selection: NavigationMenuItem?
     @State private var preferredColumn = NavigationSplitViewColumn.content
     
+    @State var viewModel: MainViewModel = MainViewModel()
+    
     var body: some View {
         NavigationSplitView(preferredCompactColumn: $preferredColumn) {
-            List(navigationMenuService.menuItems, id:\.id, selection: $selection) { menuItem in
+            List(navigationMenuService.menuItems,
+                 id:\.id,
+                 selection: $selection)
+            { menuItem in
                 if (menuItem.routableView == .employeeProfile){
                     Section(header: Text("User Profile")) {
                         NavigationLink(value: menuItem) {

@@ -44,7 +44,6 @@ struct DeveloperView: View {
                     navigationSelectionService.detailSelection = selection
                 }
             }
-                    
         }
     }
 }

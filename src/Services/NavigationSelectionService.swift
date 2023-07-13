@@ -7,15 +7,10 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class NavigationSelectionService : ObservableObject {
     let objectWillChange = PassthroughSubject<Void, Never>()
-    
-    var contentSelection: NavigationMenuItem = NavigationMenuService.getDefault() {
-        didSet{
-            objectWillChange.send()
-        }
-    }
     
     var detailSelection: NavigationMenuItem? = nil {
         didSet{

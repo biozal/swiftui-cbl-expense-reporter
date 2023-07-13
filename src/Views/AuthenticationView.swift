@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AuthenticationView: View {
     
-    @State private var viewModel: AuthenticationViewModel
+    @ObservedObject private var viewModel: AuthenticationViewModel
     
     @EnvironmentObject var databaseManager: DatabaseManager
     @EnvironmentObject var authenticationService: AuthenticationService
