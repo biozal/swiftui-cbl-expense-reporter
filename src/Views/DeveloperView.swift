@@ -23,8 +23,7 @@ struct DeveloperView: View {
                 .environmentObject(employeeRepository)
             ){
                 Text("Generate Sample Data")
-            }
-            .buttonStyle(GrowingButton())
+            }.buttonStyle(GrowingButton())
             .padding(.bottom, 44)
             
             NavigationLink(destination:
