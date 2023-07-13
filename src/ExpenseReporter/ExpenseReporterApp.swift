@@ -17,12 +17,12 @@ struct ExpenseReporterApp: App {
     @StateObject var navigationSelectionService =  NavigationSelectionService()
     
     var employeeRepository: EmployeeRepository
-    var expenseReportRepository: ExpenseReportRepository
+    var expenseReportRepository: ReportsRepository
     
     init() {
         databaseManager = DatabaseManager()
         employeeRepository = EmployeeRepository(databaseManager: databaseManager)
-        expenseReportRepository = ExpenseReportRepository(databaseManager: databaseManager)
+        expenseReportRepository = ReportsRepository(databaseManager: databaseManager)
     }
     
     var body: some Scene {

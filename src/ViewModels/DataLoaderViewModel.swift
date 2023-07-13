@@ -13,19 +13,13 @@ class DataLoaderViewModel : ObservableObject {
     
     var databaseManager: DatabaseManager?
     var employeeRepository: EmployeeRepository?
-    var expenseReportRepository: ExpenseReportRepository?
+    var expenseReportRepository: ReportsRepository?
     
-    let objectWillChange = PassthroughSubject<Void, Never>()
-    
-    var logInfo: String = "" {
-        didSet {
-            objectWillChange.send()
-        }
-    }
+    @Published var logInfo: String = ""
     
     func loadState (databaseManager: DatabaseManager,
           employeeRepository: EmployeeRepository,
-          expenseReportRepository: ExpenseReportRepository){
+          expenseReportRepository: ReportsRepository){
         self.databaseManager = databaseManager
         self.employeeRepository = employeeRepository
         self.expenseReportRepository = expenseReportRepository

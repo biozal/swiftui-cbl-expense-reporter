@@ -52,6 +52,7 @@ class Report
         self.department = department
         self.createdBy = createdBy
         self.updatedDate = updatedDate
+        self.reportForEmployee = reportForEmployee
         self.approvalManager = approvalManager
     }
 }

@@ -20,6 +20,8 @@ struct EmployeeProfileView: View {
     @State private var jobTitle = ""
     @State private var selectedDepartments = Set<Department>()
     
+    @ObservedObject var viewModel: EmployeeProfileViewModel = EmployeeProfileViewModel()
+    
     let departments = [
         Department(name: "Accounting", deptNumber: "1"),
         Department(name: "Admin", deptNumber: "2"),
@@ -129,6 +131,9 @@ struct EmployeeProfileView: View {
     }
     
     func loadState() {
+        
+        viewModel.loadState(employeeRepository: employeeRepository)
+        
         if let employeeProfile = employeeRepository.authenticatedEmployee?.employee {
             firstName = employeeProfile.firstName
             lastName = employeeProfile.lastName

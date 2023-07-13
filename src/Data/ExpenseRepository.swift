@@ -1,5 +1,5 @@
 //
-//  ExpenseReportRepository.swift
+//  ExpenseRepository.swift
 //  ExpenseReporter
 //
 //  Created by Aaron LaBeau on 7/13/23.
@@ -7,13 +7,12 @@
 
 import Foundation
 
-class ExpenseReportRepository : ObservableObject {
+class ExpenseRepository : ObservableObject {
     
     var databaseManager: DatabaseManager
-    let _documentType = "expenseReport"
+    let _documentType = "expense"
     
     init(databaseManager: DatabaseManager){
         self.databaseManager = databaseManager
     }
-    
 }

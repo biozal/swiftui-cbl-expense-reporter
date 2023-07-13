@@ -63,5 +63,5 @@ struct DatabaseInfoView: View {
 }
 
  #Preview {
- DatabaseInfoView(viewModel: DatabaseInfoViewModel())
+ DatabaseInfoView()
  }

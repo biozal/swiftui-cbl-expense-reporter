@@ -10,11 +10,16 @@ import SwiftUI
 struct DeveloperView: View {
     @EnvironmentObject var databaseManager: DatabaseManager
     @EnvironmentObject var employeeRepository: EmployeeRepository
+    @EnvironmentObject var navigationSelectionService: NavigationSelectionService
+    @EnvironmentObject var navigationMenuService: NavigationMenuService
     
+    var viewModel = DeveloperViewModel()
+   
     var body: some View {
         VStack{
             NavigationLink(destination:
-                            DataLoaderView() .environmentObject(databaseManager)
+                            DataLoaderView()
+                .environmentObject(databaseManager)
                 .environmentObject(employeeRepository)
             ){
                 Text("Generate Sample Data")
@@ -33,6 +38,14 @@ struct DeveloperView: View {
         }.padding()
             .navigationTitle("Developer Options")
             .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            if let selection = navigationMenuService.detailRoutes.first(where: {$0.routableView == .emptyView}) {
+                if (navigationSelectionService.detailSelection != selection){
+                    navigationSelectionService.detailSelection = selection
+                }
+            }
+                    
+        }
     }
 }
 

@@ -11,7 +11,7 @@ struct DataLoaderView: View {
     
     @EnvironmentObject var databaseManager: DatabaseManager
     @EnvironmentObject var employeeRepository : EmployeeRepository
-    @EnvironmentObject var expenseReportRepository: ExpenseReportRepository
+    @EnvironmentObject var expenseReportRepository: ReportsRepository
     
     @ObservedObject var viewModel: DataLoaderViewModel = DataLoaderViewModel()
 

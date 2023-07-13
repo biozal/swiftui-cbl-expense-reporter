@@ -9,7 +9,7 @@ import SwiftUI
 import Foundation
 
 
-struct NavigationMenuService {
+class NavigationMenuService : ObservableObject {
     
     let menuItems: [NavigationMenuItem] = [
         NavigationMenuItem(id: UUID().uuidString, name:"Employee Profile", icon: Image(systemName: "person.circle.fill"), routableView: RoutableView.employeeProfile),

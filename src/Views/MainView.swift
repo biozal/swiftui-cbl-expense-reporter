@@ -14,9 +14,9 @@ struct MainView: View {
     @EnvironmentObject var employeeRepository : EmployeeRepository
     @EnvironmentObject var databaseManager: DatabaseManager
     @EnvironmentObject var navigationSelectionService: NavigationSelectionService
-    @EnvironmentObject var expenseReportRepository: ExpenseReportRepository
+    @EnvironmentObject var expenseReportRepository: ReportsRepository
     
-    @State var navigationMenuService = NavigationMenuService()
+    @StateObject var navigationMenuService = NavigationMenuService()
     @State private var selection: NavigationMenuItem?
     @State private var preferredColumn = NavigationSplitViewColumn.content
     
@@ -89,16 +89,19 @@ struct MainView: View {
             
             case .developerList:
                 DeveloperView()
+                    .environmentObject(navigationMenuService)
+                    .environmentObject(navigationSelectionService)
                     .environmentObject(employeeRepository)
                     .environmentObject(databaseManager)
             case .replicationStatus:
                 ReplicationView()
             default:
-                ReportsView(navigationMenuService: navigationMenuService)
+                ReportsView()
+                    .environmentObject(navigationMenuService)
                     .environmentObject(navigationSelectionService)
             }
         } detail: {
-            switch (selection?.routableView){
+            switch (navigationSelectionService.detailSelection?.routableView){
             case .dataGenerator:
                 DataLoaderView()
                     .environmentObject(databaseManager)
@@ -106,8 +109,13 @@ struct MainView: View {
                     .environmentObject(expenseReportRepository)
             case .databaseInformation:
                 DatabaseInfoView()
+                    .environmentObject(databaseManager)
+                    .environmentObject(employeeRepository)
             case .expenseReport:
                 ExpenseReportView()
+                    .environmentObject(databaseManager)
+                    .environmentObject(employeeRepository)
+                    .environmentObject(expenseReportRepository)
             default:
                 EmptyView()
             }
