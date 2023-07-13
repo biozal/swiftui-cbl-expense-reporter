@@ -10,7 +10,8 @@ import SwiftUI
 struct DatabaseInfoView: View {
     @EnvironmentObject var databaseManager: DatabaseManager
     @EnvironmentObject var employeeRepository: EmployeeRepository
-    @State var viewModel: DatabaseInfoViewModel = DatabaseInfoViewModel()
+    
+    @ObservedObject var viewModel: DatabaseInfoViewModel = DatabaseInfoViewModel()
     
     var body: some View {
         List{

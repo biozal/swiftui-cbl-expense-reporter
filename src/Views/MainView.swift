@@ -14,6 +14,7 @@ struct MainView: View {
     @EnvironmentObject var employeeRepository : EmployeeRepository
     @EnvironmentObject var databaseManager: DatabaseManager
     @EnvironmentObject var navigationSelectionService: NavigationSelectionService
+    @EnvironmentObject var expenseReportRepository: ExpenseReportRepository
     
     @State var navigationMenuService = NavigationMenuService()
     @State private var selection: NavigationMenuItem?
@@ -102,6 +103,7 @@ struct MainView: View {
                 DataLoaderView()
                     .environmentObject(databaseManager)
                     .environmentObject(employeeRepository)
+                    .environmentObject(expenseReportRepository)
             case .databaseInformation:
                 DatabaseInfoView()
             case .expenseReport:

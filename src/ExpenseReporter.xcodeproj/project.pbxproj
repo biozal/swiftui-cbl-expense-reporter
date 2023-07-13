@@ -34,9 +34,10 @@
 		0D5E257C2A494C6B00549273 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5E257B2A494C6B00549273 /* AuthenticationView.swift */; };
 		0D5E257F2A494FC800549273 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5E257E2A494FC800549273 /* AuthenticationService.swift */; };
 		0D8ADAF52A4FC5DA000EB9C9 /* NavigationSelectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8ADAF42A4FC5DA000EB9C9 /* NavigationSelectionService.swift */; };
+		0DAE6BFF2A60882D0001B5B8 /* ExpenseReportRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAE6BFE2A60882D0001B5B8 /* ExpenseReportRepository.swift */; };
 		0DCF33452A574EBB005AE4AB /* ExpenseTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF33442A574EBB005AE4AB /* ExpenseTypes.swift */; };
 		0DCF33472A575B50005AE4AB /* StandardExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF33462A575B50005AE4AB /* StandardExpense.swift */; };
-		0DCF33492A575D36005AE4AB /* DataGeneratorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF33482A575D36005AE4AB /* DataGeneratorService.swift */; };
+		0DCF33492A575D36005AE4AB /* DataLoaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF33482A575D36005AE4AB /* DataLoaderViewModel.swift */; };
 		0DCF334B2A57AABF005AE4AB /* DataLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF334A2A57AABF005AE4AB /* DataLoaderView.swift */; };
 		0DCF334D2A57B740005AE4AB /* DatabaseInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF334C2A57B740005AE4AB /* DatabaseInfoView.swift */; };
 		0DCF334F2A57BE15005AE4AB /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCF334E2A57BE15005AE4AB /* EmptyView.swift */; };
@@ -94,9 +95,10 @@
 		0D5E257B2A494C6B00549273 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		0D5E257E2A494FC800549273 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		0D8ADAF42A4FC5DA000EB9C9 /* NavigationSelectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSelectionService.swift; sourceTree = "<group>"; };
+		0DAE6BFE2A60882D0001B5B8 /* ExpenseReportRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseReportRepository.swift; sourceTree = "<group>"; };
 		0DCF33442A574EBB005AE4AB /* ExpenseTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTypes.swift; sourceTree = "<group>"; };
 		0DCF33462A575B50005AE4AB /* StandardExpense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardExpense.swift; sourceTree = "<group>"; };
-		0DCF33482A575D36005AE4AB /* DataGeneratorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataGeneratorService.swift; sourceTree = "<group>"; };
+		0DCF33482A575D36005AE4AB /* DataLoaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoaderViewModel.swift; sourceTree = "<group>"; };
 		0DCF334A2A57AABF005AE4AB /* DataLoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoaderView.swift; sourceTree = "<group>"; };
 		0DCF334C2A57B740005AE4AB /* DatabaseInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseInfoView.swift; sourceTree = "<group>"; };
 		0DCF334E2A57BE15005AE4AB /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 			children = (
 				0D42D7642A4BE058005BE69C /* DatabaseManager.swift */,
 				0D42D7672A4BE250005BE69C /* EmployeeRepository.swift */,
+				0DAE6BFE2A60882D0001B5B8 /* ExpenseReportRepository.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -257,7 +260,6 @@
 				0D5E257E2A494FC800549273 /* AuthenticationService.swift */,
 				0D1014F62A4B7AEB00A36606 /* NavigationMenuService.swift */,
 				0D8ADAF42A4FC5DA000EB9C9 /* NavigationSelectionService.swift */,
-				0DCF33482A575D36005AE4AB /* DataGeneratorService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -265,6 +267,7 @@
 		0DCF33502A5DE397005AE4AB /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				0DCF33482A575D36005AE4AB /* DataLoaderViewModel.swift */,
 				0DCF33512A5DE3BA005AE4AB /* DatabaseInfoViewModel.swift */,
 				0DCF33532A5E3AB4005AE4AB /* AuthenticationViewModel.swift */,
 			);
@@ -407,7 +410,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0DCF33492A575D36005AE4AB /* DataGeneratorService.swift in Sources */,
+				0DCF33492A575D36005AE4AB /* DataLoaderViewModel.swift in Sources */,
 				0D260C7E2A4941B20008ED17 /* MainView.swift in Sources */,
 				0D3FEE162A54A4490006B88F /* UIImage.swift in Sources */,
 				0DCF334D2A57B740005AE4AB /* DatabaseInfoView.swift in Sources */,
@@ -427,6 +430,7 @@
 				0D1014E42A4B6CDF00A36606 /* ExpenseReport.swift in Sources */,
 				0D5E257F2A494FC800549273 /* AuthenticationService.swift in Sources */,
 				0D1014ED2A4B725E00A36606 /* Manager.swift in Sources */,
+				0DAE6BFF2A60882D0001B5B8 /* ExpenseReportRepository.swift in Sources */,
 				0D42D7632A4BD007005BE69C /* EmployeeProfileView.swift in Sources */,
 				0DCF33472A575B50005AE4AB /* StandardExpense.swift in Sources */,
 				0D5C81D62A4E17E100CC3B21 /* Employee.swift in Sources */,
