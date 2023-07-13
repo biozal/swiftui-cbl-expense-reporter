@@ -6,15 +6,8 @@
 //
 
 import Foundation
-import Combine
 import SwiftUI
 
 class NavigationSelectionService : ObservableObject {
-    let objectWillChange = PassthroughSubject<Void, Never>()
-    
-    var detailSelection: NavigationMenuItem? = nil {
-        didSet{
-            objectWillChange.send()
-        }
-    }
+    @Published var detailSelection: NavigationMenuItem?
 }

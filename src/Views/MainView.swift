@@ -15,10 +15,9 @@ struct MainView: View {
     @EnvironmentObject var navigationSelectionService: NavigationSelectionService
     @EnvironmentObject var expenseReportRepository: ReportsRepository
     
-    @StateObject var navigationMenuService = NavigationMenuService()
     @State private var selection: NavigationMenuItem?
     @State private var preferredColumn = NavigationSplitViewColumn.content
-    
+    @State var navigationMenuService = NavigationMenuService()
     @State var viewModel: MainViewModel = MainViewModel()
     
     var body: some View {
@@ -105,23 +104,25 @@ struct MainView: View {
                     .environmentObject(navigationSelectionService)
             }
         } detail: {
-            switch (navigationSelectionService.detailSelection?.routableView){
-            case .dataGenerator:
-                DataLoaderView()
-                    .environmentObject(databaseManager)
-                    .environmentObject(employeeRepository)
-                    .environmentObject(expenseReportRepository)
-            case .databaseInformation:
-                DatabaseInfoView()
-                    .environmentObject(databaseManager)
-                    .environmentObject(employeeRepository)
-            case .expenseReport:
-                ExpenseReportView()
-                    .environmentObject(databaseManager)
-                    .environmentObject(employeeRepository)
-                    .environmentObject(expenseReportRepository)
-            default:
-                EmptyView()
+            ZStack{
+                switch (navigationSelectionService.detailSelection?.routableView){
+                case .dataGenerator:
+                    DataLoaderView()
+                        .environmentObject(databaseManager)
+                        .environmentObject(employeeRepository)
+                        .environmentObject(expenseReportRepository)
+                case .databaseInformation:
+                    DatabaseInfoView()
+                        .environmentObject(databaseManager)
+                        .environmentObject(employeeRepository)
+                case .expenseReport:
+                    ExpenseReportView()
+                        .environmentObject(databaseManager)
+                        .environmentObject(employeeRepository)
+                        .environmentObject(expenseReportRepository)
+                default:
+                    EmptyView()
+                }
             }
         }
         .environmentObject(authenticationService)
