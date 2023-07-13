@@ -16,11 +16,13 @@ struct ExpenseReporterApp: App {
     @StateObject var authService = AuthenticationService()
     @StateObject var navigationSelectionService =  NavigationSelectionService()
     
-    var userProfileRepository: EmployeeRepository
+    var employeeRepository: EmployeeRepository
+    var expenseReportRepository: ReportsRepository
     
     init() {
         databaseManager = DatabaseManager()
-        userProfileRepository = EmployeeRepository(databaseManager: databaseManager)
+        employeeRepository = EmployeeRepository(databaseManager: databaseManager)
+        expenseReportRepository = ReportsRepository(databaseManager: databaseManager)
     }
     
     var body: some Scene {
@@ -29,13 +31,14 @@ struct ExpenseReporterApp: App {
                 MainView()
                     .environmentObject(databaseManager)
                     .environmentObject(authService)
-                    .environmentObject(userProfileRepository)
+                    .environmentObject(employeeRepository)
+                    .environmentObject(expenseReportRepository)
                     .environmentObject(navigationSelectionService)
             } else {
                 AuthenticationView()
                     .environmentObject(databaseManager)
                     .environmentObject(authService)
-                    .environmentObject(userProfileRepository)
+                    .environmentObject(employeeRepository)
                 
             }
         }

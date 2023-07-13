@@ -9,8 +9,8 @@ import Foundation
 import SwiftUI
 
 class DatabaseInfoViewModel : ObservableObject {
-    var databaseManager: DatabaseManager
-    var employeeRepository: EmployeeRepository
+    var databaseManager: DatabaseManager?
+    var employeeRepository: EmployeeRepository?
     
     @Published var databasePath: String = ""
     @Published var databaseName: String = ""
@@ -24,7 +24,12 @@ class DatabaseInfoViewModel : ObservableObject {
     @Published var expenseTypeCount: Int = 0
     
     //@Published var databaseInfo: [DatabaseInfo] = []
-    init(
+    
+    init () {
+        
+    }
+    
+    func loadState(
         databaseManager: DatabaseManager,
         employeeRepository: EmployeeRepository) {
             self.databaseManager = databaseManager
@@ -34,18 +39,21 @@ class DatabaseInfoViewModel : ObservableObject {
         }
     
     func loadData() {
-        currentUsername = employeeRepository.authenticatedEmployee?.employee.email ?? ""
-        if let departments = employeeRepository .authenticatedEmployee?.employee.department
-        {
-            let departmentNames = departments.map { $0.name  }
-            let joinedNames = departmentNames.joined(separator: ", ")
+        if let emplRepository = employeeRepository,
+           let dbManager = databaseManager{
+            currentUsername = emplRepository.authenticatedEmployee?.employee.email ?? ""
+            if let departments = emplRepository .authenticatedEmployee?.employee.department
+            {
+                let departmentNames = departments.map { $0.name  }
+                let joinedNames = departmentNames.joined(separator: ", ")
+                
+                userDepartments = joinedNames
+            }
             
-            userDepartments = joinedNames
+            databaseName = dbManager.fullDatabaseName
+            databasePath = dbManager.database?.path ?? "Couldn't find database path"
+            
+            employeeProfileCount = emplRepository.count()
         }
-        
-        databaseName = databaseManager.databaseName
-        databasePath = databaseManager.database?.path ?? "Couldn't find database path"
-        
-        employeeProfileCount = employeeRepository.count()
     }
 }

@@ -9,7 +9,8 @@ import SwiftUI
 import Foundation
 
 
-struct NavigationMenuService {
+class NavigationMenuService
+: ObservableObject {
     
     let menuItems: [NavigationMenuItem] = [
         NavigationMenuItem(id: UUID().uuidString, name:"Employee Profile", icon: Image(systemName: "person.circle.fill"), routableView: RoutableView.employeeProfile),
@@ -22,6 +23,7 @@ struct NavigationMenuService {
         NavigationMenuItem(id: UUID().uuidString, name:"Database Information", icon: Image(systemName: "info.square"), routableView: RoutableView.databaseInformation),
         NavigationMenuItem(id: UUID().uuidString, name:"Data Generator ", icon: Image(systemName: "arrow.up.left.arrow.down.right.square.fill"), routableView: RoutableView.dataGenerator),
         NavigationMenuItem(id: UUID().uuidString, name:"Expense Report Detail", icon: Image(systemName: "coloncurrencysign.square.fill"), routableView: RoutableView.expenseReport),
+        NavigationMenuItem(id: UUID().uuidString, name:"Empty", icon: Image(systemName: "coloncurrencysign.square.fill"), routableView: RoutableView.emptyView),
     ]
     
     static func getDefault() -> NavigationMenuItem {

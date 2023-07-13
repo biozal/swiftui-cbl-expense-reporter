@@ -9,19 +9,24 @@ import SwiftUI
 
 struct MainView: View {
     
-    
     @EnvironmentObject var authenticationService: AuthenticationService
     @EnvironmentObject var employeeRepository : EmployeeRepository
     @EnvironmentObject var databaseManager: DatabaseManager
     @EnvironmentObject var navigationSelectionService: NavigationSelectionService
+    @EnvironmentObject var expenseReportRepository: ReportsRepository
     
-    @State var navigationMenuService = NavigationMenuService()
+    @StateObject var navigationMenuService = NavigationMenuService()
     @State private var selection: NavigationMenuItem?
     @State private var preferredColumn = NavigationSplitViewColumn.content
     
+    @State var viewModel: MainViewModel = MainViewModel()
+    
     var body: some View {
         NavigationSplitView(preferredCompactColumn: $preferredColumn) {
-            List(navigationMenuService.menuItems, id:\.id, selection: $selection) { menuItem in
+            List(navigationMenuService.menuItems,
+                 id:\.id,
+                 selection: $selection)
+            { menuItem in
                 if (menuItem.routableView == .employeeProfile){
                     Section(header: Text("User Profile")) {
                         NavigationLink(value: menuItem) {
@@ -83,29 +88,38 @@ struct MainView: View {
         } content: {
             switch selection?.routableView {
             case .employeeProfile:
-                EmployeeProfileView(selectedNavigationMenuItem: $selection)
+                EmployeeProfileView()
                     .environmentObject(employeeRepository)
             
             case .developerList:
                 DeveloperView()
+                    .environmentObject(navigationMenuService)
+                    .environmentObject(navigationSelectionService)
                     .environmentObject(employeeRepository)
                     .environmentObject(databaseManager)
             case .replicationStatus:
                 ReplicationView()
             default:
-                ReportsView(navigationMenuService: navigationMenuService)
+                ReportsView()
+                    .environmentObject(navigationMenuService)
                     .environmentObject(navigationSelectionService)
             }
         } detail: {
-            switch (selection?.routableView){
+            switch (navigationSelectionService.detailSelection?.routableView){
             case .dataGenerator:
                 DataLoaderView()
                     .environmentObject(databaseManager)
                     .environmentObject(employeeRepository)
+                    .environmentObject(expenseReportRepository)
             case .databaseInformation:
                 DatabaseInfoView()
+                    .environmentObject(databaseManager)
+                    .environmentObject(employeeRepository)
             case .expenseReport:
                 ExpenseReportView()
+                    .environmentObject(databaseManager)
+                    .environmentObject(employeeRepository)
+                    .environmentObject(expenseReportRepository)
             default:
                 EmptyView()
             }

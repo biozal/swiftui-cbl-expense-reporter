@@ -10,7 +10,6 @@ import PhotosUI
 struct EmployeeProfileView: View {
     
     @EnvironmentObject var employeeRepository: EmployeeRepository
-    @Binding var selectedNavigationMenuItem: NavigationMenuItem?
     
     @State private var avatarItem: PhotosPickerItem?
     @State private var avatarImage: Image?
@@ -20,6 +19,8 @@ struct EmployeeProfileView: View {
     @State private var lastName = ""
     @State private var jobTitle = ""
     @State private var selectedDepartments = Set<Department>()
+    
+    @ObservedObject var viewModel: EmployeeProfileViewModel = EmployeeProfileViewModel()
     
     let departments = [
         Department(name: "Accounting", deptNumber: "1"),
@@ -110,8 +111,7 @@ struct EmployeeProfileView: View {
                                 
                                 if (saveResults){
                                     //route back to expense reports
-                                    selectedNavigationMenuItem = NavigationMenuService.getDefault()
-                                    
+                                    //pop view off
                                 } else {
                                     //todo show error message
                                 }
@@ -131,6 +131,9 @@ struct EmployeeProfileView: View {
     }
     
     func loadState() {
+        
+        viewModel.loadState(employeeRepository: employeeRepository)
+        
         if let employeeProfile = employeeRepository.authenticatedEmployee?.employee {
             firstName = employeeProfile.firstName
             lastName = employeeProfile.lastName
